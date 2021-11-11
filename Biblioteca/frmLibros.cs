@@ -18,7 +18,7 @@ namespace Biblioteca
         {
             InitializeComponent();
         }
-
+       
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -70,6 +70,50 @@ namespace Biblioteca
             return result;
         }
 
+
+
+
+
+        //*****************************************************
+        #region Metodos
+        private void llenarDGV(string condicion="")
+        {
+            LNLibro ln = new LNLibro(PConfig.getCadConexion);
+            DataSet ds;
+            try
+            {
+                ds = ln.listarTodos(condicion);
+                //ds = ln.listarTodos(); ///like se usa como comparador % comodines para buscar por filtros en el where
+                dvLibros.DataSource = ds.Tables[0]; // se carga el data grid view  con el indice 0 del data set;
+            }
+            catch (Exception ex)
+            {
+
+                mensajesError(ex);
+            }
+            dvLibros.Columns[0].HeaderText = "Clave de libro";
+            dvLibros.Columns[2].HeaderText = "Titulo";
+            dvLibros.Columns[1].HeaderText = "Clave Autor";
+            dvLibros.Columns[3].HeaderText = "Clave Categoria";
+            dvLibros.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells); // se ordena
+
+        }
+
+        private void mensajesError(Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        #endregion
+
+
+
+
+
+
+
+
+
+
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             Elibro libro;
@@ -110,9 +154,14 @@ namespace Biblioteca
                 catch (Exception ex)
                 {
 
-                    MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    mensajesError(ex);
                 }
             }
+        }
+
+        private void frmLibros_Load(object sender, EventArgs e)
+        {
+            llenarDGV();
         }
     }
 }

@@ -42,8 +42,8 @@ namespace Biblioteca
             this.btnBuscar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dvLibros = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dvLibros)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -173,24 +173,24 @@ namespace Biblioteca
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
-            // dataGridView1
+            // dvLibros
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(22, 261);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(1028, 430);
-            this.dataGridView1.TabIndex = 13;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dvLibros.AllowUserToAddRows = false;
+            this.dvLibros.AllowUserToDeleteRows = false;
+            this.dvLibros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dvLibros.Location = new System.Drawing.Point(22, 261);
+            this.dvLibros.Name = "dvLibros";
+            this.dvLibros.ReadOnly = true;
+            this.dvLibros.Size = new System.Drawing.Size(1028, 430);
+            this.dvLibros.TabIndex = 13;
+            this.dvLibros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // frmLibros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1129, 703);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dvLibros);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.btnGuardar);
@@ -206,7 +206,8 @@ namespace Biblioteca
             this.Controls.Add(this.label1);
             this.Name = "frmLibros";
             this.Text = "Admi libros";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.frmLibros_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dvLibros)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,7 +228,7 @@ namespace Biblioteca
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dvLibros;
     }
 }
 

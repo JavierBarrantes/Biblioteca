@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace AcessoDatos
 {
@@ -144,5 +145,34 @@ namespace AcessoDatos
 
             return result;
         }
+        public DataSet listarTodos(string condicion = "") //RECUPERAR UN DATASET(1 O muchas tablas)
+        {
+            DataSet setLibros = new DataSet();
+            string sentencia = "Select claveLibro, titulo, claveAutor, claveCategoria from Libro";
+
+            if (!string.IsNullOrEmpty(condicion))
+                sentencia = string.Format("{0} where {1}", sentencia, condicion);
+            SqlConnection connection = new SqlConnection(cadConexion);
+            SqlDataAdapter sqlDataAdapter; // NO SE INSTANCIA AUN HASTA QUE SE USE!!!
+
+            try
+            {
+                sqlDataAdapter = new SqlDataAdapter(sentencia,connection); //se instancia con el selec y la conexion a la base de datos
+                sqlDataAdapter.Fill(setLibros,"Libro"); //LLENA EL DATA SET
+                sqlDataAdapter.Dispose();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Ha ocurrido algo");
+            }
+            finally
+            {
+                connection.Dispose();
+            }
+                    return setLibros;
+        }
+
     }
+    //LINKQ
 }
