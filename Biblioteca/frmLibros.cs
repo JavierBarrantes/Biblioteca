@@ -86,7 +86,7 @@ namespace Biblioteca
                 //ds = ln.listarTodos(); ///like se usa como comparador % comodines para buscar por filtros en el where
                 dvLibros.DataSource = ds.Tables[0]; // se carga el data grid view  con el indice 0 del data set;
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
 
                 mensajesError(ex);
