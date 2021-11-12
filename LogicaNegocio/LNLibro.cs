@@ -44,7 +44,7 @@ namespace LogicaNegocio
 
                 throw ex;
             }
-            //Todo:implementar
+         
             return result;
 
         }
@@ -52,7 +52,6 @@ namespace LogicaNegocio
         {
             bool result = false;
             ADLibro adLibro = new ADLibro(cadConexion);
-            //Todo:implementar
 
             try
             {

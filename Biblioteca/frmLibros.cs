@@ -7,7 +7,7 @@ namespace Biblioteca
 {
     public partial class frmLibros : Form
     {
-        ECategoria categoria = new ECategoria("C0001", "Comic");
+     
         public frmLibros()
         {
             InitializeComponent();
@@ -113,7 +113,8 @@ namespace Biblioteca
         {
             Elibro libro;
             EAutor autor;
-
+            ECategoria categoria = new ECategoria(txtClaveCategoria.Text,"Poo");
+            LNCategoria lNCategoria = new LNCategoria(PConfig.getCadConexion);//SIEMPRE ARRASTRAR LA CADENA POR LAS DIFF CAPAS
             LNAutor lnAutor = new LNAutor(PConfig.getCadConexion);
             LNLibro ln = new LNLibro(PConfig.getCadConexion);
             if (textosLlenos())
@@ -136,11 +137,19 @@ namespace Biblioteca
                             }
                             else
                             {
-                                if (ln.insertar(libro) > 0)
+                                if (!lNCategoria.ClaveRepetida(libro))
                                 {
-                                    MessageBox.Show("El libro se guardo con éxito");
-                                    //TODO:VER
+                                    MessageBox.Show("La clave de la categoria no existe");
                                 }
+                                else
+                                {
+                                    if (ln.insertar(libro) > 0)
+                                    {
+                                        MessageBox.Show("El libro se guardo con éxito");
+                                        //TODO:VER
+                                    }
+                                }
+                               
                             }
                            
                         }
