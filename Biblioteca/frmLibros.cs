@@ -127,7 +127,7 @@ namespace Biblioteca
                     if (!ln.libroRepetido(libro))
                     {
                         
-                        if (!ln.claveRepetida(libro.ClaveLibro))
+                        if (!ln.claveRepetida(libro.ClaveLibro)) 
                         {
                             if (!lnAutor.ClaveRepetida(libro))
                             {
