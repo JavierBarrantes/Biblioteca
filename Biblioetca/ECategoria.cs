@@ -23,5 +23,9 @@ namespace Entidades
             this.ClaveCategoria = clave;
             this.Descripcion = descripcion;
         }
+
+        #region Cnstructores 
+       
+        #endregion
     }
 }

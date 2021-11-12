@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Entidades;
 using LogicaNegocio;
@@ -79,6 +73,7 @@ namespace Biblioteca
         private void llenarDGV(string condicion="")
         {
             LNLibro ln = new LNLibro(PConfig.getCadConexion);
+           
             DataSet ds;
             try
             {
@@ -117,11 +112,14 @@ namespace Biblioteca
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             Elibro libro;
+            EAutor autor;
+
+            LNAutor lnAutor = new LNAutor(PConfig.getCadConexion);
             LNLibro ln = new LNLibro(PConfig.getCadConexion);
             if (textosLlenos())
             {
                 libro = new Elibro(txtClaveLibro.Text, txtLibro.Text, txtClaveAutor.Text,categoria, false);
-
+           
                 try
                 {
                     //TODO:agregar acceso a la capa de logica
@@ -130,15 +128,25 @@ namespace Biblioteca
                         
                         if (!ln.claveRepetida(libro.ClaveLibro))
                         {
-                            if (ln.insertar(libro) > 0)
+                            if (!lnAutor.ClaveRepetida(libro))
                             {
-                                MessageBox.Show("El libro se guardo con éxito");
-                                //TODO:VER
+                              
+                                MessageBox.Show("La clave de autor no existe !");
+                                txtClaveAutor.Focus();
                             }
+                            else
+                            {
+                                if (ln.insertar(libro) > 0)
+                                {
+                                    MessageBox.Show("El libro se guardo con éxito");
+                                    //TODO:VER
+                                }
+                            }
+                           
                         }
                         else
-                        {
-                            MessageBox.Show("La clave del libro ya se encuentra en uso! ");
+                            {
+                                MessageBox.Show("La clave del libro ya se encuentra en uso! ");
                             txtClaveLibro.Focus();
 
                         }
