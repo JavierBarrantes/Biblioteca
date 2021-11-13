@@ -50,7 +50,7 @@ namespace Biblioteca
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 54);
+            this.label1.Location = new System.Drawing.Point(28, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(149, 25);
             this.label1.TabIndex = 0;
@@ -59,7 +59,7 @@ namespace Biblioteca
             // txtClaveLibro
             // 
             this.txtClaveLibro.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClaveLibro.Location = new System.Drawing.Point(22, 82);
+            this.txtClaveLibro.Location = new System.Drawing.Point(33, 82);
             this.txtClaveLibro.Name = "txtClaveLibro";
             this.txtClaveLibro.Size = new System.Drawing.Size(154, 31);
             this.txtClaveLibro.TabIndex = 1;
@@ -143,12 +143,14 @@ namespace Biblioteca
             // 
             // btnBuscar
             // 
+            this.btnBuscar.Enabled = false;
             this.btnBuscar.Location = new System.Drawing.Point(444, 155);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(95, 52);
             this.btnBuscar.TabIndex = 11;
             this.btnBuscar.Text = "Eliminar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // button1
             // 
@@ -178,18 +180,19 @@ namespace Biblioteca
             this.dvLibros.AllowUserToAddRows = false;
             this.dvLibros.AllowUserToDeleteRows = false;
             this.dvLibros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dvLibros.Location = new System.Drawing.Point(22, 261);
+            this.dvLibros.Location = new System.Drawing.Point(33, 237);
             this.dvLibros.Name = "dvLibros";
             this.dvLibros.ReadOnly = true;
-            this.dvLibros.Size = new System.Drawing.Size(1028, 430);
+            this.dvLibros.Size = new System.Drawing.Size(981, 385);
             this.dvLibros.TabIndex = 13;
-            this.dvLibros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dvLibros.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvLibros_CellContentClick);
+            this.dvLibros.DoubleClick += new System.EventHandler(this.dvLibros_DoubleClick);
             // 
             // frmLibros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1129, 703);
+            this.ClientSize = new System.Drawing.Size(1135, 634);
             this.Controls.Add(this.dvLibros);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnBuscar);

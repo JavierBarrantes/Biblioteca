@@ -173,6 +173,101 @@ namespace AcessoDatos
                     return setLibros;
         }
 
+
+
+        public Elibro buscarRegistro(string condicion)
+        {
+            string setencia = "select clavelibro, titulo, claveAutor, claveCategoria from libro";
+            Elibro libro = new Elibro();
+            setencia = $"{setencia} where {condicion}";
+         
+
+            SqlConnection connection = new SqlConnection(cadConexion);
+            SqlCommand sqlCommand = new SqlCommand(setencia,connection);
+            SqlDataReader datos;
+            try
+            {
+                connection.Open();
+                datos = sqlCommand.ExecuteReader();
+                if (datos.HasRows) // si trae datos se hace lectura los datos
+                {
+                    datos.Read();//hace iteracion por los datos (se necesitaria un foreach en caso de que haya muchos registros y un read debera declararse en cada iteracion del for)}
+                    libro.ClaveLibro = datos.GetString(0);
+                    libro.Titulo = datos.GetString(1);
+                    libro.ClaveAutor = datos.GetString(2);
+                    libro.Categoria.ClaveCategoria = datos.GetString(3);
+                    connection.Close();
+                }
+                
+
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("No se ha encontrado el libro");
+            }
+            finally
+            {
+                sqlCommand.Dispose();
+                connection.Dispose();
+            }
+
+            return libro;
+         
+        }
+        public int eliminar(Elibro libro)
+        {
+            int result = -1;
+            string sentencia = $"Delete from libro where claveLibro='{libro.ClaveLibro}'";
+            SqlConnection connection = new SqlConnection(cadConexion);
+            SqlCommand sqlCommand = new SqlCommand(sentencia, connection);
+
+            try
+            {
+                connection.Open();
+              result=sqlCommand.ExecuteNonQuery();
+               connection.Close();
+            }
+            catch (Exception)
+            {
+                result = -1;
+            }
+            finally
+            {
+                connection.Dispose();
+                sqlCommand.Dispose();
+            }
+            return result;
+        }
+        public string eliminarProcedure(Elibro libro)
+        {
+            string sentencia = "EliminarLibro";
+            SqlConnection connection = new SqlConnection(cadConexion);
+            SqlCommand sqlCommand = new SqlCommand(sentencia, connection);
+            //no OLVIDAR SE DEBE DECLARAR UN STOREPROCEDURE
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.AddWithValue("@clave", libro.ClaveLibro);
+            //parametro dfe salida (le pertenece al sqlcomanda)
+            sqlCommand.Parameters.Add("@msj", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;//mensaje de salida
+            try
+            {
+                connection.Open();
+                sqlCommand.ExecuteNonQuery();
+                mensaje = sqlCommand.Parameters["@msj"].Value.ToString();
+                connection.Close();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Se ha presentando un errror en el procedimiento en la base de datos");
+            }
+            finally
+            {
+                sqlCommand.Dispose();
+                connection.Dispose();
+            }
+            return mensaje;
+        }
     }
     //LINKQ
 }

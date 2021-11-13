@@ -99,6 +99,56 @@ namespace LogicaNegocio
 
             return setlibros;
         }
+
+        public Elibro buscarRegistro(string condicion)
+        {
+            Elibro libro;
+            ADLibro aDLibro = new ADLibro(cadConexion);
+            try
+            {
+              libro=  aDLibro.buscarRegistro(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return libro;
+        }
+
+
+        public int eliminar(Elibro libro)
+        {
+      ;
+            ADLibro aDLibro = new ADLibro(cadConexion);
+            int result = -1;
+            try
+            {
+               result= aDLibro.eliminar(libro);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return result;
+        }
+        public string eliminarProcedure(Elibro libro)
+        {
+            ADLibro aDLibro = new ADLibro(cadConexion);
+
+            try
+            {
+                mensaje = aDLibro.eliminarProcedure(libro);
+            }
+            catch (Exception ex)
+            {
+
+                mensaje = ex.Message;
+            }
+            return mensaje;
+        }
         #endregion
     }
 }

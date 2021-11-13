@@ -7,16 +7,18 @@ namespace Biblioteca
 {
     public partial class frmLibros : Form
     {
-     
+        Elibro libro;
+        EAutor autor;
+        ECategoria categoria;
+        LNCategoria lNCategoria = new LNCategoria(PConfig.getCadConexion);//SIEMPRE ARRASTRAR LA CADENA POR LAS DIFF CAPAS
+        LNLibro ln = new LNLibro(PConfig.getCadConexion);
+        LNAutor lnAutor = new LNAutor(PConfig.getCadConexion);
         public frmLibros()
         {
             InitializeComponent();
         }
        
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+      
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
@@ -29,6 +31,13 @@ namespace Biblioteca
             txtClaveCategoria.Text = string.Empty;
             txtClaveLibro.Text = string.Empty;
             txtClaveLibro.Focus();
+            libro = null;
+            ln = null;
+            lnAutor = null;
+            lNCategoria = null;
+            categoria = null;
+            autor = null;
+            llenarDGV();
         }
         private bool textosLlenos()
         {
@@ -67,7 +76,6 @@ namespace Biblioteca
 
 
 
-
         //*****************************************************
         #region Metodos
         private void llenarDGV(string condicion="")
@@ -87,10 +95,10 @@ namespace Biblioteca
                 mensajesError(ex);
             }
             dvLibros.Columns[0].HeaderText = "Clave de libro";
-            dvLibros.Columns[2].HeaderText = "Titulo";
-            dvLibros.Columns[1].HeaderText = "Clave Autor";
+            dvLibros.Columns[1].HeaderText = "Titulo";
+            dvLibros.Columns[2].HeaderText = "Clave Autor";
             dvLibros.Columns[3].HeaderText = "Clave Categoria";
-            dvLibros.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.DisplayedCells); // se ordena
+            dvLibros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // se ordena
 
         }
 
@@ -100,23 +108,10 @@ namespace Biblioteca
         }
         #endregion
 
-
-
-
-
-
-
-
-
-
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            Elibro libro;
-            EAutor autor;
-            ECategoria categoria = new ECategoria(txtClaveCategoria.Text,"Poo");
-            LNCategoria lNCategoria = new LNCategoria(PConfig.getCadConexion);//SIEMPRE ARRASTRAR LA CADENA POR LAS DIFF CAPAS
-            LNAutor lnAutor = new LNAutor(PConfig.getCadConexion);
-            LNLibro ln = new LNLibro(PConfig.getCadConexion);
+            categoria = new ECategoria(txtClaveCategoria.Text, "Poo");
+
             if (textosLlenos())
             {
                 libro = new Elibro(txtClaveLibro.Text, txtLibro.Text, txtClaveAutor.Text,categoria, false);
@@ -180,5 +175,68 @@ namespace Biblioteca
         {
             llenarDGV();
         }
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
     }
-}
+
+        private void dvLibros_DoubleClick(object sender, EventArgs e)
+        {
+
+            int fila = dvLibros.CurrentRow.Index;//fila del data grid view (DEVUELVE EL INDICE DONDE dieron click en el datagrid)
+            string clave = dvLibros[0, fila].Value.ToString();
+            string condicion = $"claveLibro='{clave}'";
+            try
+            {
+                libro = ln.buscarRegistro(condicion);
+                if (libro != null)
+                {
+                    libro.Existe = true;
+                    txtClaveLibro.Text = libro.ClaveLibro;
+                    txtLibro.Text = libro.Titulo;
+                    txtClaveAutor.Text = libro.ClaveAutor;
+                    txtClaveCategoria.Text = libro.Categoria.ClaveCategoria;
+
+                    btnBuscar.Enabled = true;//es el boton de eliminar :/   
+                }
+            }
+            catch (Exception ex)
+            {
+                mensajesError(ex);
+            }
+        }
+
+        private void dvLibros_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            int resultado;
+            DialogResult resp;
+            if(libro!=null && libro.Existe)
+            {
+                resp = MessageBox.Show($"Estas seguro que quieres borrar el libro que pertenece a la clave de libro{libro.ClaveLibro}?", "Confirmacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resp == DialogResult.Yes)
+                {
+                    MessageBox.Show(ln.eliminarProcedure(libro));
+                    limpiarTextos();
+
+                    //resultado = ln.eliminar(libro);
+                    //if (resultado> 0)
+                    //{
+                    //    MessageBox.Show("El libro se elimino exitosamente");
+                    //    limpiarTextos();
+                    //}
+                    //else if (resultado == -1)
+                    //    MessageBox.Show("Un error al eliminar el libro en la base de datos");
+                        
+                    
+                }
+                else
+                    limpiarTextos();
+               
+            }
+        }
+    }
+    }
