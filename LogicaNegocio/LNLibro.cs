@@ -149,6 +149,22 @@ namespace LogicaNegocio
             }
             return mensaje;
         }
+
+        public int modificar(Elibro libro, string claveVieja = "")
+        {
+            int result;
+            ADLibro aDLibro = new ADLibro(cadConexion);
+            try
+            {
+                result= aDLibro.modificar(libro,claveVieja)
+            }
+            catch (Exception ex )
+            {
+
+                throw ex;
+            }
+            return result;
+        }
         #endregion
     }
 }

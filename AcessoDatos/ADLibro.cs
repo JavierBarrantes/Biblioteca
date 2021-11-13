@@ -268,6 +268,40 @@ namespace AcessoDatos
             }
             return mensaje;
         }
+
+
+        public int modificar(Elibro libro,string claveVieja="")
+        {
+            int result = -1;
+            string sentencia = "";
+            SqlConnection connection = new SqlConnection(cadConexion);
+            SqlCommand sqlCommand = new SqlCommand(sentencia,connection);
+            if(string.IsNullOrEmpty(claveVieja))
+                sentencia=$"'{libro.Titulo}', claveAutor = '{libro.ClaveAutor}', claveCategoria = '{libro.Categoria.ClaveCategoria}'  where claveLibro = '{libro.ClaveLibro}'";
+            else
+            {
+                sentencia = $"'{libro.Titulo}', claveAutor = '{libro.ClaveAutor}', claveCategoria = '{libro.Categoria.ClaveCategoria}'  where claveLibro = '{claveVieja}'";
+            }
+
+            try
+            {
+                connection.Open();
+                sqlCommand.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Un problema al actualizar");
+            }
+            finally
+            {
+                connection.Dispose();
+                sqlCommand.Dispose();
+            }
+
+            return result;
+        }
     }
     //LINKQ
 }

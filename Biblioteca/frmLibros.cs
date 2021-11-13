@@ -114,63 +114,77 @@ namespace Biblioteca
 
             if (textosLlenos())
             {
+                if(libro==null)
                 libro = new Elibro(txtClaveLibro.Text, txtLibro.Text, txtClaveAutor.Text,categoria, false);
+                else
+                {
+                     //TODO: LLENAR UN LIST Y VER LINKQ
+                     //2: METERLE CABEZA A MODIFICAR
+                     //3: 
+                }
+                if (libro.Existe)
+                    insertarLibro();
            
-                try
-                {
-                    //TODO:agregar acceso a la capa de logica
-                    if (!ln.libroRepetido(libro))
-                    {
-                        
-                        if (!ln.claveRepetida(libro.ClaveLibro)) 
-                        {
-                            if (!lnAutor.ClaveRepetida(libro))
-                            {
-                              
-                                MessageBox.Show("La clave de autor no existe !");
-                                txtClaveAutor.Focus();
-                            }
-                            else
-                            {
-                                if (!lNCategoria.ClaveRepetida(libro))
-                                {
-                                    MessageBox.Show("La clave de la categoria no existe");
-                                }
-                                else
-                                {
-                                    if (ln.insertar(libro) > 0)
-                                    {
-                                        MessageBox.Show("El libro se guardo con éxito");
-                                        //TODO:VER
-                                    }
-                                }
-                               
-                            }
-                           
-                        }
-                        else
-                            {
-                                MessageBox.Show("La clave del libro ya se encuentra en uso! ");
-                            txtClaveLibro.Focus();
-
-                        }
-                    }
-                    else
-                    {
-                        
-                        MessageBox.Show("El nombre del titulo ya se encuentra en uso!");
-                        txtLibro.Focus();
-                    } 
-
-                }
-                catch (Exception ex)
-                {
-
-                    mensajesError(ex);
-                }
             }
         }
 
+        private void insertarLibro()
+        {
+
+            try
+            {
+                //TODO:agregar acceso a la capa de logica
+                if (!ln.libroRepetido(libro))
+                {
+
+                    if (!ln.claveRepetida(libro.ClaveLibro))
+                    {
+                        if (!lnAutor.ClaveRepetida(libro))
+                        {
+
+                            MessageBox.Show("La clave de autor no existe !");
+                            txtClaveAutor.Focus();
+                        }
+                        else
+                        {
+                            if (!lNCategoria.ClaveRepetida(libro))
+                            {
+                                MessageBox.Show("La clave de la categoria no existe");
+                            }
+                            else
+                            {
+                                if (ln.insertar(libro) > 0)
+                                {
+                                    MessageBox.Show("El libro se guardo con éxito");
+                                    //TODO:VER
+                                }
+                            }
+
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("La clave del libro ya se encuentra en uso! ");
+                        txtClaveLibro.Focus();
+
+                    }
+                }
+                else
+                {
+
+                    MessageBox.Show("El nombre del titulo ya se encuentra en uso!");
+                    txtLibro.Focus();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                mensajesError(ex);
+            }
+
+        }
         private void frmLibros_Load(object sender, EventArgs e)
         {
             llenarDGV();
