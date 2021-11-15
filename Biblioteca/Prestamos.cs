@@ -297,6 +297,7 @@ namespace Biblioteca
                     if (lNPrestamo.modificar(ePrestamo) > 0)
                     {
                         MessageBox.Show("Se actulizo corractamente");
+                        llenarDGV();
                     }
                     
 

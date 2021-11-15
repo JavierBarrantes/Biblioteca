@@ -150,7 +150,7 @@ using System.Data;
         int result = -1;
         string sentencia = "";
         SqlConnection connection = new SqlConnection(cadConexion);
-        SqlCommand sqlCommand = new SqlCommand(sentencia, connection);
+    
         if (string.IsNullOrEmpty(claveVieja))
             sentencia = $"Update Prestamo set claveEjemplar='{prestamo.ClaveEjemplar}', claveUsuario='{prestamo.ClaveUsuario}', FechaPrestamo='{prestamo.FechaPrestamo.ToString("yyyy/MM/dd")}', fechaDevolucion='{prestamo.FechaDevolucion.ToString("yyyy/MM/dd")}' " +
                 $"where clavePrestamo = '{prestamo.ClavePrestamo}'";
@@ -159,7 +159,7 @@ using System.Data;
             sentencia = $"Update Prestamo set claveEjemplar='{prestamo.ClaveEjemplar}', claveUsuario='{prestamo.ClaveUsuario}', FechaPrestamo='{prestamo.FechaPrestamo.ToString("yyyy/MM/dd")}', fechaDevolucion='{prestamo.FechaDevolucion.ToString("yyyy/MM/dd")}' " +
                 $"where clavePrestamo = '{claveVieja}'";
         }
-
+        SqlCommand sqlCommand = new SqlCommand(sentencia, connection);
         try
         {
             connection.Open();
