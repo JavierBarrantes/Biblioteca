@@ -86,6 +86,35 @@ namespace AcessoDatos
             }
             return result;
         }
+
+
+        public DataSet listarTodos(string condicion = "") //RECUPERAR UN DATASET(1 O muchas tablas)
+        {
+            DataSet setLibros = new DataSet();
+            string sentencia = "Select claveUsuario, curp, nombre, apMaterno, apPaterno, fechaNacimiento, email, direccion from Usuario";
+
+            if (!string.IsNullOrEmpty(condicion))
+                sentencia = string.Format("{0} where claveUsuario='{1}'", sentencia, condicion);
+            SqlConnection connection = new SqlConnection(cadConexion);
+            SqlDataAdapter sqlDataAdapter; // NO SE INSTANCIA AUN HASTA QUE SE USE!!!
+
+            try
+            {
+                sqlDataAdapter = new SqlDataAdapter(sentencia, connection); //se instancia con el selec y la conexion a la base de datos
+                sqlDataAdapter.Fill(setLibros, "Usuario"); //LLENA EL DATA SET
+                sqlDataAdapter.Dispose();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Ha ocurrido algo");
+            }
+            finally
+            {
+                connection.Dispose();
+            }
+            return setLibros;
+        }
         #endregion 
     }
 }

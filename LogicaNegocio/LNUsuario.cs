@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using AcessoDatos;
 using Entidades;
@@ -14,7 +15,7 @@ namespace LogicaNegocio
         #region Constructores
         public LNUsuario(string cadena)
         {
-            CadenaConexion=cadena;
+            CadenaConexion = cadena;
         }
 
         #endregion
@@ -25,7 +26,7 @@ namespace LogicaNegocio
         public int unResgistro(EPrestamo ePrestamo)
         {
 
-            ADUSuario usuario= new ADUSuario(CadenaConexion);
+            ADUSuario usuario = new ADUSuario(CadenaConexion);
             try
             {
 
@@ -49,6 +50,23 @@ namespace LogicaNegocio
 
                 throw ex;
             }
+        } 
+
+        public DataSet listarTodos(string condicion = "")
+        {
+            DataSet setlibros;
+            ADUSuario usuario = new ADUSuario(CadenaConexion);
+            try
+            {
+                setlibros =usuario.listarTodos(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return setlibros;
         }
         #endregion
     }

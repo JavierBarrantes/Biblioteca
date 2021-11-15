@@ -2,11 +2,12 @@
 using Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace LogicaNegocio
 {
-   public class LNEjemplar
+    public class LNEjemplar
     {
         public string CadConexion { get; }
 
@@ -21,7 +22,7 @@ namespace LogicaNegocio
 
         public int unResgistro(EPrestamo ePrestamo)
         {
-            
+
             ADEjemplar ejemplar = new ADEjemplar(CadConexion);
             try
             {
@@ -61,6 +62,23 @@ namespace LogicaNegocio
 
                 throw ex;
             }
+        }
+
+        public DataSet listarTodos(string condicion = "")
+        {
+            DataSet setlibros;
+            ADEjemplar ejemplar = new ADEjemplar(CadConexion);
+            try
+            {
+                setlibros = ejemplar.listarTodos(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return setlibros;
         }
         #endregion
     }

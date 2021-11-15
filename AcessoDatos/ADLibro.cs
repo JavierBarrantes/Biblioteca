@@ -179,7 +179,7 @@ namespace AcessoDatos
         {
             string setencia = "select clavelibro, titulo, claveAutor, claveCategoria from libro";
             Elibro libro = new Elibro();
-            setencia = $"{setencia} where {condicion}";
+            setencia = $"{setencia} where '{condicion}'";
          
 
             SqlConnection connection = new SqlConnection(cadConexion);
