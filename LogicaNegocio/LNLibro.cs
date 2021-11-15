@@ -156,7 +156,7 @@ namespace LogicaNegocio
             ADLibro aDLibro = new ADLibro(cadConexion);
             try
             {
-                result= aDLibro.modificar(libro,claveVieja)
+                result = aDLibro.modificar(libro, claveVieja);
             }
             catch (Exception ex )
             {

@@ -15,6 +15,8 @@ namespace Biblioteca
         LNAutor lnAutor = new LNAutor(PConfig.getCadConexion);
         public frmLibros()
         {
+           
+         
             InitializeComponent();
         }
        
