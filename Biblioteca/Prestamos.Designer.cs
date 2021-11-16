@@ -48,10 +48,11 @@ namespace Biblioteca
             this.dgvEjemplarDatos = new System.Windows.Forms.DataGridView();
             this.dgvUsuario = new System.Windows.Forms.DataGridView();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.txtFiltrarUsuario = new System.Windows.Forms.Label();
+            this.txtFiltrarNombre = new System.Windows.Forms.TextBox();
+            this.lbFiltrarUsuario = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtFiltarEjemplar = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPrestamo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEjemplarDatos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuario)).BeginInit();
@@ -174,7 +175,7 @@ namespace Biblioteca
             this.dgvPrestamo.AllowUserToAddRows = false;
             this.dgvPrestamo.AllowUserToDeleteRows = false;
             this.dgvPrestamo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPrestamo.Location = new System.Drawing.Point(544, 169);
+            this.dgvPrestamo.Location = new System.Drawing.Point(532, 327);
             this.dgvPrestamo.Name = "dgvPrestamo";
             this.dgvPrestamo.ReadOnly = true;
             this.dgvPrestamo.Size = new System.Drawing.Size(800, 516);
@@ -216,6 +217,7 @@ namespace Biblioteca
             // dtpDevolucion
             // 
             this.dtpDevolucion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDevolucion.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDevolucion.Location = new System.Drawing.Point(962, 71);
             this.dtpDevolucion.Name = "dtpDevolucion";
             this.dtpDevolucion.Size = new System.Drawing.Size(370, 31);
@@ -248,29 +250,30 @@ namespace Biblioteca
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(539, 141);
+            this.label8.Location = new System.Drawing.Point(536, 288);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(228, 25);
             this.label8.TabIndex = 22;
             this.label8.Text = "Detalles de Prestamos";
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
-            // textBox1
+            // txtFiltrarNombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(26, 221);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(432, 20);
-            this.textBox1.TabIndex = 23;
+            this.txtFiltrarNombre.Location = new System.Drawing.Point(26, 221);
+            this.txtFiltrarNombre.Name = "txtFiltrarNombre";
+            this.txtFiltrarNombre.Size = new System.Drawing.Size(432, 20);
+            this.txtFiltrarNombre.TabIndex = 23;
+            this.txtFiltrarNombre.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // txtFiltrarUsuario
+            // lbFiltrarUsuario
             // 
-            this.txtFiltrarUsuario.AutoSize = true;
-            this.txtFiltrarUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFiltrarUsuario.Location = new System.Drawing.Point(23, 193);
-            this.txtFiltrarUsuario.Name = "txtFiltrarUsuario";
-            this.txtFiltrarUsuario.Size = new System.Drawing.Size(259, 25);
-            this.txtFiltrarUsuario.TabIndex = 24;
-            this.txtFiltrarUsuario.Text = "Filtrar por nombre usuario";
+            this.lbFiltrarUsuario.AutoSize = true;
+            this.lbFiltrarUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFiltrarUsuario.Location = new System.Drawing.Point(23, 193);
+            this.lbFiltrarUsuario.Name = "lbFiltrarUsuario";
+            this.lbFiltrarUsuario.Size = new System.Drawing.Size(259, 25);
+            this.lbFiltrarUsuario.TabIndex = 24;
+            this.lbFiltrarUsuario.Text = "Filtrar por nombre usuario";
             // 
             // label10
             // 
@@ -290,15 +293,27 @@ namespace Biblioteca
             this.txtFiltarEjemplar.TabIndex = 25;
             this.txtFiltarEjemplar.TextChanged += new System.EventHandler(this.txtFiltarEjemplar_TextChanged);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(487, 129);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(210, 49);
+            this.button1.TabIndex = 27;
+            this.button1.Text = " Devolver Prestamo";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Prestamos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1391, 864);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtFiltarEjemplar);
-            this.Controls.Add(this.txtFiltrarUsuario);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lbFiltrarUsuario);
+            this.Controls.Add(this.txtFiltrarNombre);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.dgvUsuario);
             this.Controls.Add(this.dgvEjemplarDatos);
@@ -350,9 +365,10 @@ namespace Biblioteca
         private System.Windows.Forms.DataGridView dgvEjemplarDatos;
         private System.Windows.Forms.DataGridView dgvUsuario;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label txtFiltrarUsuario;
+        private System.Windows.Forms.TextBox txtFiltrarNombre;
+        private System.Windows.Forms.Label lbFiltrarUsuario;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtFiltarEjemplar;
+        private System.Windows.Forms.Button button1;
     }
 }

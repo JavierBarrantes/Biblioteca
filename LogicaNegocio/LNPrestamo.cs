@@ -107,5 +107,33 @@ namespace LogicaNegocio
                 throw ex;
             }
         }
+        public int DeolverUnPrestamo(EPrestamo ePrestamo)
+        {
+           
+            ADPrestamo prestamo = new ADPrestamo(cadConexion);
+            try
+            {
+                return prestamo.DeolverUnPrestamo(ePrestamo);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+        public int ClaveRepetida(EPrestamo ePrestamo)
+        {
+            ADPrestamo prestamo = new ADPrestamo(cadConexion);
+            try
+            {
+                return prestamo.ClaveRepetida(ePrestamo);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

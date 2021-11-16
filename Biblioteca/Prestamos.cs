@@ -48,11 +48,25 @@ namespace Biblioteca
                         
                         if (ejemplar.unResgistro(ePrestamo) > 0)
                         {
-                            entidadesEjemplar = new EEjemplar(txtEjemplar.Text, "ES002");
+                            
                             if (ejemplar.validoParaPrestamo(ePrestamo) >0) {
-                                ejemplar.modificar(entidadesEjemplar);
-                                lNPrestamo.insertarPrestamo(ePrestamo);
-                                MessageBox.Show("El prestamo se inserto correctamente!");
+                                if (lNPrestamo.ClaveRepetida(ePrestamo) < 0)
+                                {
+                                    entidadesEjemplar = new EEjemplar(txtEjemplar.Text, "ES002");
+                                    ejemplar.modificar(entidadesEjemplar);
+                                    lNPrestamo.insertarPrestamo(ePrestamo);
+                                    MessageBox.Show("El prestamo se inserto correctamente!");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Esa clave de prestamo ya existe");
+                                }
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ese ejemplar ya esta prestado...");
+
                             }
 
                         }
@@ -216,8 +230,7 @@ namespace Biblioteca
             string condicionUsuario = txtClaveUsuario.Text;
             string condicion = txtEjemplar.Text;
             llenarDGV();
-            llenarDGVEjemplar(condicion);
-            llenarDGVUsuario(condicionUsuario);
+         
         }
 
         private void txtEjemplar_TextChanged(object sender, EventArgs e)
@@ -291,22 +304,34 @@ namespace Biblioteca
             txtEjemplar.Text, txtClaveUsuario.Text, dtpPrestamo.Value, dtpDevolucion.Value);
             try
             {
-
-                if (lNPrestamo.unResgistro(ePrestamo) > 0)
+                if (txtClavePrestamo.Text != ePrestamo.ClavePrestamo)
                 {
                     if (lNPrestamo.modificar(ePrestamo) > 0)
                     {
                         MessageBox.Show("Se actulizo corractamente");
                         llenarDGV();
                     }
-                    
 
+                    else
+                    {
+                        MessageBox.Show("Ese usuario ya tiene un prestamo!");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("El registro no existe");
+                    if (lNPrestamo.modificar(ePrestamo,txtClavePrestamo.Text) > 0)
+                    {
+                        MessageBox.Show("Se actulizo corractamente");
+                        llenarDGV();
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("Ese usuario ya tiene un prestamo!");
+                    }
                 }
-                
+                  
+               
             }
             catch (Exception ex)
             {
@@ -317,8 +342,29 @@ namespace Biblioteca
 
         private void txtFiltarEjemplar_TextChanged(object sender, EventArgs e)
         {
-            string condicion=$"like {txtFiltrarUsuario.Text}";
+            string condicion=$"'{txtFiltarEjemplar.Text}%' and e.claveEstado='Es003'";
+            llenarDGVEjemplar(condicion);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            string condicion = $"'{txtFiltrarNombre.Text}%'";
             llenarDGVUsuario(condicion);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ePrestamo = new EPrestamo(txtClavePrestamo.Text,
+              txtEjemplar.Text, txtClaveUsuario.Text, dtpPrestamo.Value, dtpDevolucion.Value);
+            if (lNPrestamo.DeolverUnPrestamo(ePrestamo) < 0) {
+
+                MessageBox.Show("Se devolvio el libro");
+            }
+            else
+            {
+                MessageBox.Show("cp no se pudo actualizar ");
+            };
+
         }
     }
 }
