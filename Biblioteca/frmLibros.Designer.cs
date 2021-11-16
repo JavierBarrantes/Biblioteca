@@ -29,6 +29,7 @@ namespace Biblioteca
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLibros));
             this.label1 = new System.Windows.Forms.Label();
             this.txtClaveLibro = new System.Windows.Forms.TextBox();
             this.txtLibro = new System.Windows.Forms.TextBox();
@@ -140,6 +141,7 @@ namespace Biblioteca
             this.btnGuardar.TabIndex = 10;
             this.btnGuardar.Text = "Buscar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // btnBuscar
             // 
@@ -208,7 +210,7 @@ namespace Biblioteca
             this.Controls.Add(this.txtClaveLibro);
             this.Controls.Add(this.label1);
             this.Name = "frmLibros";
-            this.Text = "Admi libros";
+            this.Text = resources.GetString("$this.Text");
             this.Load += new System.EventHandler(this.frmLibros_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dvLibros)).EndInit();
             this.ResumeLayout(false);

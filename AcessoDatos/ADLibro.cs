@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
 using System.Data;
+using System.Linq;
 
 namespace AcessoDatos
 {
@@ -179,7 +180,7 @@ namespace AcessoDatos
         {
             string setencia = "select clavelibro, titulo, claveAutor, claveCategoria from libro";
             Elibro libro = new Elibro();
-            setencia = $"{setencia} where '{condicion}'";
+            setencia = $"{setencia} where {condicion}";
          
 
             SqlConnection connection = new SqlConnection(cadConexion);
@@ -275,14 +276,14 @@ namespace AcessoDatos
             int result = -1;
             string sentencia = "";
             SqlConnection connection = new SqlConnection(cadConexion);
-            SqlCommand sqlCommand = new SqlCommand(sentencia,connection);
+         
             if(string.IsNullOrEmpty(claveVieja))
-                sentencia=$"'{libro.Titulo}', claveAutor = '{libro.ClaveAutor}', claveCategoria = '{libro.Categoria.ClaveCategoria}'  where claveLibro = '{libro.ClaveLibro}'";
+                sentencia=$"Update libro set titulo='{libro.Titulo}', claveAutor = '{libro.ClaveAutor}', claveCategoria = '{libro.Categoria.ClaveCategoria}'  where claveLibro = '{libro.ClaveLibro}'";
             else
             {
-                sentencia = $"'{libro.Titulo}', claveAutor = '{libro.ClaveAutor}', claveCategoria = '{libro.Categoria.ClaveCategoria}'  where claveLibro = '{claveVieja}'";
+                sentencia = $"Update libro set titulo='{libro.Titulo}', claveAutor = '{libro.ClaveAutor}', claveCategoria = '{libro.Categoria.ClaveCategoria}', claveLibro='{libro.ClaveLibro}'  where claveLibro = '{claveVieja}'";
             }
-
+            SqlCommand sqlCommand = new SqlCommand(sentencia,connection);
             try
             {
                 connection.Open();
@@ -302,6 +303,39 @@ namespace AcessoDatos
 
             return result;
         }
+        public List<Elibro> listarTodosLista(string condicion)
+        {
+            List<Elibro> listarLibros = new List<Elibro>();
+            DataTable tabla = new DataTable();
+            string setencia = "";
+            SqlDataAdapter adaptador;
+            if (!string.IsNullOrEmpty(condicion))
+                setencia = string.Format("{0} where {1}", setencia, condicion);
+            try
+            {
+
+                adaptador = new SqlDataAdapter(setencia, cadConexion);
+                adaptador.Fill(tabla);
+                //LINQ
+                listarLibros = (from DataRow registro in tabla.Rows
+                                select new Elibro()
+                                {
+                                    ClaveLibro = registro[0].ToString(),
+                                    Titulo=registro[1].ToString(),
+                                    ClaveAutor=registro[2].ToString(),
+                                    Categoria= new ECategoria()
+                                    {
+                                        ClaveCategoria=registro[3].ToString()
+                                    }
+                                }).ToList();
+                
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Ha ocurrido un eror al recueperar el list de la base de datos");
+            }
+            return listarLibros;
+        }
     }
-    //LINKQ
 }

@@ -75,7 +75,7 @@ namespace Biblioteca
             return result;
         }
 
-
+      
 
 
         //*****************************************************
@@ -112,22 +112,97 @@ namespace Biblioteca
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+           
+            string clave = "",autor="",titulo="";
             categoria = new ECategoria(txtClaveCategoria.Text, "Poo");
 
             if (textosLlenos())
             {
                 if(libro==null)
                 libro = new Elibro(txtClaveLibro.Text, txtLibro.Text, txtClaveAutor.Text,categoria, false);
+                else 
+                  if(hayCambios(ref clave, ref autor, ref titulo)){
+                    libro.ClaveLibro = txtClaveLibro.Text;
+                    libro.ClaveAutor = txtClaveAutor.Text;
+                    libro.Categoria.ClaveCategoria = txtClaveCategoria.Text;
+                    libro.Titulo = txtLibro.Text;
+                }
+                if (!libro.Existe)
+                    insertarLibro();
+                else
+                { //update
+                    if (string.IsNullOrEmpty(clave)==false)
+                    {
+                        if (ln.claveRepetida(libro.ClaveLibro) == false)
+                        {
+                            cambiosTituloAutor(autor, titulo, clave);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Esta clave ya se encuentra registrada en la base de datos");
+                            txtClaveLibro.Focus();
+                        }
+                    }
+                    else
+                    {
+                        cambiosTituloAutor(autor, titulo,"");
+                    }
+                }
+               //OUT ES CUANDO no se incializan las variables de referencia
+            }
+        }
+
+        private void cambiosTituloAutor(string autor,string titulo, string clave)
+        {
+           
+            if (!string.IsNullOrEmpty(titulo) || !string.IsNullOrEmpty(autor))
+            {
+                if (ln.libroRepetido(libro) != true)
+                {
+                    hacerUpdate(clave);
+                }
                 else
                 {
-                     //TODO: LLENAR UN LIST Y VER LINKQ
-                     //2: METERLE CABEZA A MODIFICAR
-                     //3: 
+                    MessageBox.Show("Ya existe un libro con el mismo autor y el mismo titulo");
                 }
-                if (libro.Existe)
-                    insertarLibro();
-           
             }
+            else
+            {
+                hacerUpdate(clave);
+            }
+        }
+
+        private void hacerUpdate(string clave)
+        {
+            if (ln.modificar(libro, clave) < 0)
+             MessageBox.Show("Se actulizo el libro con exito!");
+            else
+                MessageBox.Show("No se pudo actualizar");
+
+             limpiarTextos();
+
+        }
+        private bool hayCambios(ref string clave, ref string autor, ref string titulo)
+        {
+            bool result = false;
+
+            if (txtClaveLibro.Text != libro.ClaveLibro)
+            {
+                result = true;
+                clave = libro.ClaveLibro;//claveVieja
+            }
+            if (txtLibro.Text != libro.Titulo)
+            {
+                result = true;
+                titulo = libro.Titulo;
+            }
+            if (txtClaveAutor.Text != libro.ClaveAutor)
+            {
+                result = true;
+                autor = libro.ClaveAutor;
+
+            }
+            return result;
         }
 
         private void insertarLibro()
@@ -253,6 +328,11 @@ namespace Biblioteca
                     limpiarTextos();
                
             }
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+
         }
     }
     }

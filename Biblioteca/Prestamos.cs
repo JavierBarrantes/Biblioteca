@@ -314,5 +314,11 @@ namespace Biblioteca
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void txtFiltarEjemplar_TextChanged(object sender, EventArgs e)
+        {
+            string condicion=$"like {txtFiltrarUsuario.Text}";
+            llenarDGVUsuario(condicion)
+        }
     }
 }
