@@ -9,23 +9,23 @@
         </div>
         <br />
 
-        <%if (Session["_err"] != null)
+        <%if (Session["_err"] != null) //
             {  %>
         <div class="alert alert-danger" role="alert">
             <%=Session["_err"]%>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        
+
         <%   }%>
 
 
-       <%if (Session["_wrn"] != null)
+        <%if (Session["_wrn"] != null)
             {  %>
         <div class="alert alert-warning" role="alert">
             <%=Session["_wrn"]%>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        
+
         <%   }%>
 
 
