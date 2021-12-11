@@ -111,9 +111,7 @@ namespace AcessoDatos
                 connection.Open();
                 objScalar = sqlCommand.ExecuteScalar();
                 if (objScalar != null)
-                {
                     result = 1;
-                }
                 connection.Close();
             }
             catch (Exception)
@@ -132,10 +130,11 @@ namespace AcessoDatos
         public DataSet listarTodos(string condicion = "") //RECUPERAR UN DATASET(1 O muchas tablas)
         {
             DataSet setLibros = new DataSet();
-            string sentencia = "Select claveEjemplar, claveLibro, claveCondicion, claveEstado, edicion, claveEditorial, numeroPaginas from Ejemplar";
+            string sentencia = "Select claveEjemplar, e.claveLibro, claveCondicion, claveEstado, edicion, claveEditorial, numeroPaginas  " +
+                "from EJEMPLAR e inner join LIBRO l on e.claveLibro = l.claveLibro";
 
             if (!string.IsNullOrEmpty(condicion))
-                sentencia = string.Format("{0} where claveEjemplar='{1}'", sentencia, condicion);
+                sentencia = string.Format("{0} where l.titulo like {1}", sentencia, condicion);
             SqlConnection connection = new SqlConnection(CadConexion);
             SqlDataAdapter sqlDataAdapter; // NO SE INSTANCIA AUN HASTA QUE SE USE!!!
 

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="CadConexion" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Server=UROCCFSRLAB0104\SQLEXPRESS;Database=Biblioteca;User Id=sa;Password=sa;</Value>
+      <Value Profile="(Default)">Server=DESKTOP-OEH9I43\SQLEXPRESS;Database=Biblioteca;User Id=sa;Password=sa;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -208,6 +208,57 @@ using System.Data;
         return result;
 
     }
+
+    public int DeolverUnPrestamo(EPrestamo ePrestamo)
+    {
+        int result = -1; 
+        string sentencia = $"Update ejemplar set claveEstado='Es003' where claveEjemplar ='{ePrestamo.ClaveEjemplar}'";
+        SqlConnection connection = new SqlConnection(cadConexion);
+        SqlCommand sqlCommand = new SqlCommand(sentencia, connection);
+        try
+        {
+            connection.Open();
+            sqlCommand.ExecuteNonQuery();
+            connection.Close();
+
+
+        }
+        catch (Exception)
+        {
+
+            throw new Exception("Ha ocurrido un error al devolver el prestamo");
+        }
+        finally
+        {
+            connection.Dispose();
+            sqlCommand.Dispose();
+        }
+        return result;
+    }
+
+    public int ClaveRepetida(EPrestamo ePrestamo)
+    {
+        int result = -1;
+        string sentencia = $"select 1 from prestamo where clavePrestamo='{ePrestamo.ClavePrestamo}'";
+        object scalar;
+        SqlConnection connection = new SqlConnection(cadConexion);
+        SqlCommand sqlCommand = new SqlCommand(sentencia, connection);
+        try
+        {
+            connection.Open();
+            scalar = sqlCommand.ExecuteScalar();
+            if (scalar != null)
+            result = 1;
+            connection.Close();
+            
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+        return result;
+    }
     #endregion
 }
 

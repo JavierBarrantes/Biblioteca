@@ -60,7 +60,6 @@ namespace AcessoDatos
             int result = -1;
             string sentencia = $"Select USUARIO.nombre from USUARIO right join PRESTAMO  on USUARIO.claveUsuario=PRESTAMO.claveUsuario " +
                 $" where  prestamo.claveUsuario ='{prestamo.ClaveUsuario}'";
-
             SqlConnection connection = new  SqlConnection(cadConexion);
             SqlCommand sqlCommand = new SqlCommand(sentencia,connection);
             object objScalar;
@@ -94,7 +93,7 @@ namespace AcessoDatos
             string sentencia = "Select claveUsuario, curp, nombre, apMaterno, apPaterno, fechaNacimiento, email, direccion from Usuario";
 
             if (!string.IsNullOrEmpty(condicion))
-                sentencia = string.Format("{0} where claveUsuario='{1}'", sentencia, condicion);
+                sentencia = string.Format("{0} where nombre like {1}", sentencia, condicion);
             SqlConnection connection = new SqlConnection(cadConexion);
             SqlDataAdapter sqlDataAdapter; // NO SE INSTANCIA AUN HASTA QUE SE USE!!!
 
