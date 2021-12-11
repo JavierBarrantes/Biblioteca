@@ -2,6 +2,7 @@
 using Entidades;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 
 namespace LogicaNegocio
@@ -42,6 +43,38 @@ namespace LogicaNegocio
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+
+            return result;
+        }
+        public ECategoria BuscarRegistro(string condicion)
+        {
+            ECategoria cate;
+            ADCategoria accesoDatos = new ADCategoria(CadenaConexion);
+
+            try
+            {
+                cate = accesoDatos.BuscarRegistro(condicion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return cate;
+        }
+
+        public DataTable ListarRegistros(string condicion)
+        {
+            DataTable result;
+            ADCategoria accesoDatos = new ADCategoria(CadenaConexion);
+
+            try
+            {
+                result = accesoDatos.ListarRegistros(condicion);
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
 

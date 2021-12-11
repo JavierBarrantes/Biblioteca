@@ -120,7 +120,7 @@ namespace LogicaNegocio
 
         public int eliminar(Elibro libro)
         {
-      ;
+      
             ADLibro aDLibro = new ADLibro(cadConexion);
             int result = -1;
             try
@@ -164,6 +164,21 @@ namespace LogicaNegocio
                 throw ex;
             }
             return result;
+        }
+        public DataTable listarTodos(string condicion, bool vista)
+        {
+            DataTable datos;
+            ADLibro libro = new ADLibro(cadConexion);
+            try
+            {
+                datos = libro.listarTodos(condicion,vista);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return datos;
         }
         #endregion
     }

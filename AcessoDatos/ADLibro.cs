@@ -337,5 +337,30 @@ namespace AcessoDatos
             }
             return listarLibros;
         }
+        public DataTable listarTodos(string condicion, bool vista)
+        {
+            DataTable datos = new DataTable();
+            SqlConnection connection = new SqlConnection(cadConexion);
+            SqlDataAdapter ad;
+            string sentencia = "Select * from llenarDGV";
+            if (!string.IsNullOrEmpty(condicion))
+                sentencia = $"{sentencia} where {condicion}";
+            try
+            {
+                ad = new SqlDataAdapter(sentencia, cadConexion);
+                ad.Fill(datos);
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Un error al cargar la lista de los libros filtrada por titulo");
+            }
+            finally
+            {
+                connection.Dispose();
+            }
+
+            return datos;
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Entidades
         public string Nombre { get; set; }
         public string APPaterno{ get; set; }
         public string APMarterno { get;set;}
-    
+        public bool ExiteRegistro { get; set; }
         #region Constructores
         public EAutor()
         {
