@@ -110,7 +110,7 @@ namespace AcessoDatos
             SqlDataAdapter adaptador;
             SqlConnection conexion = new SqlConnection(CadenaConexion);
 
-            string sentencia = "Select * From Categoria";
+            string sentencia = "select c.claveCategoria  as Ccategoria,l.titulo,c.descripcion from CATEGORIA c inner join LIBRO l on  c.claveCategoria=l.claveCategoria";
 
             if (!string.IsNullOrEmpty(condicion))
                 sentencia = $"{sentencia} Where {condicion}";

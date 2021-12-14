@@ -342,7 +342,7 @@ namespace AcessoDatos
             DataTable datos = new DataTable();
             SqlConnection connection = new SqlConnection(cadConexion);
             SqlDataAdapter ad;
-            string sentencia = "Select * from llenarDGV";
+            string sentencia = "Select * from libro";
             if (!string.IsNullOrEmpty(condicion))
                 sentencia = $"{sentencia} where {condicion}";
             try

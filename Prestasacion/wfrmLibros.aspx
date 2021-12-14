@@ -18,7 +18,7 @@
             </div>
             <div class="col-4">
                 <asp:Label ID="Label2" runat="server" Text="Titulo"></asp:Label>
-                <asp:TextBox ID="txtTitulo" runat="server" CssClass="form-control"></asp:TextBox>
+                    
             </div>
             <div class="col-3">
                 <asp:TextBox ID="TextBox1" runat="server" Visible="false"></asp:TextBox>
@@ -41,7 +41,7 @@
                         type="button"
                         id="btnCategoria"
                         data-bs-toggle="modal"
-                        data-bs-target="#autorModal">
+                        data-bs-target="#cateModal">
                         Buscar</button>
                     <asp:TextBox ID="txtCategoria" runat="server" CssClass="form-control" ReadOnly="true"
                         aria-describedby="btnCategoria"></asp:TextBox>
@@ -53,8 +53,7 @@
         <asp:Button ID="btnGuardar" runat="server" Text="Guadar" CssClass="btn btn-warning" />
 
     </div>
-    <%--fin del container--%>
-    <%--<%-- <%-- Modales --%>
+    <%--<%--   <%--fin del container--%><%--<%-- <%-- Modales --%>
     <div class="modal" tabindex="-1" role="dialog" id="autorModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -110,23 +109,53 @@
 
 
 
-    <div class="modal" tabindex="-1">
+    <div class="modal" tabindex="-1" role="dialog" id="cateModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Moe</h5>
+                    <h5 class="modal-title">Categorias</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <p>Filtra categoria acá.</p>
+                    <div class="col-auto">
+                        <asp:Label ID="Label6" runat="server" Text="Categoria"></asp:Label>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-auto">
+
+                            <asp:TextBox ID="txtFiltrarCate" runat="server" CssClass="form-control" ValidationGroup="1"></asp:TextBox>
+                        </div>
+                        <div class="col-auto">
+                            <asp:Button ID="btbFiltrarC" runat="server" Text="Filtrar" CssClass="btn btn-primary" OnClick="btnFiltrar_Click" ValidationGroup="1" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Debe agregar un dato" ValidationGroup="1" ControlToValidate="txtAutorModal"></asp:RequiredFieldValidator>
+                        </div>
+                        <asp:GridView ID="gvCate" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" Width="266px">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Seleccionar">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnbSelecionarCate" runat="server" CommandArgument='<%# Eval("Ccategoria").ToString() %>'>Seleccionar</asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField HeaderText="Categoria" DataField="descripcion" />
+                                <asp:BoundField HeaderText="Titulo" DataField="Titulo" />
+                            </Columns>
+                            <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                            <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
+                            <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                            <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
+                            <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                            <SortedDescendingHeaderStyle BackColor="#242121" />
+                        </asp:GridView>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 </asp:Content>

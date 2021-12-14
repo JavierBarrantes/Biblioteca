@@ -22,7 +22,7 @@ namespace Prestasacion
             {
                 txtFiltrarTitulo.Text = string.Empty;
                 txtFiltrarTitulo.Focus();
-                CargarDatos("");
+                    CargarDatos("");
               
             }
         
