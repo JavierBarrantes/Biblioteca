@@ -26,7 +26,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-        <%   }%>
+        <% }%>
 
 
         <div class="row mt-3">
@@ -34,19 +34,22 @@
                 <asp:Label ID="Label1" runat="server" Text="Filtrar por Titulo"></asp:Label>
             </div>
             <div class="col-auto ">
-                <asp:TextBox ID="txtFiltrarTitulo" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:TextBox ID="txtFiltrarTitulo" runat="server" CssClass="form-control" ValidationGroup="1"></asp:TextBox>
             </div>
             <div class="col-auto">
-                <asp:Button ID="Button1" runat="server" Text="Buscar" CssClass="btn btn-primary" />
+                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="Button1_Click"  ValidationGroup ="1"/>
+                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-secondary" OnClick="btnEliminar_Click" />
+                <asp:Button ID="btnLibroNuevo" runat="server" Text="Nuevo" CssClass="btn btn-secondary" OnClick="btnLibroNuevo_Click" />
             </div>
         </div>
         <br />
-        <asp:GridView ID="dtvLibros" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%">
+        <asp:RequiredFieldValidator ID="rfvTxtTitulo" runat="server" ErrorMessage="Debe ingresar parte del titulo que sea filtrar." ControlToValidate="txtFiltrarTitulo"  Font-Italic="True" ValidationGroup="1" ForeColor="#CC0000"></asp:RequiredFieldValidator>
+        <asp:GridView ID="dtvLibros" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%" AllowPaging="True" EmptyDataText="No hay datos actualmente  inserta alguno nuevo" OnPageIndexChanging="dtvLibros_PageIndexChanging" PageSize="15">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:LinkButton ID="lnkModificar" runat="server" CommandArgument='<%# Eval("Clave").ToString() %>'>Modifcar</asp:LinkButton>
+                        <asp:LinkButton ID="lnkModificar" runat="server" CommandArgument='<%# Eval("Clave").ToString() %>' OnCommand="lnkModificar_Command">Modifcar</asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField>

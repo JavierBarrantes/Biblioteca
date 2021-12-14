@@ -1,0 +1,3 @@
+﻿function abrirModal() {
+    $('#btnAutor').click();
+}
