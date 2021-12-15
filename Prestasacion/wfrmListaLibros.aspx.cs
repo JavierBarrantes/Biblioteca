@@ -94,5 +94,12 @@ namespace Prestasacion
         {
             Response.Redirect("wfrmLibros.aspx");
         }
+
+        protected void lnkEliminar_Command(object sender, CommandEventArgs e)
+        {
+            Session["_claveLibro"] = e.CommandArgument.ToString();
+            Response.Redirect("wfrmEliminarLibro");
+
+        }
     }
 }

@@ -73,6 +73,7 @@
     <Content Include="miScript.js" />
     <Content Include="Web.config" />
     <Content Include="inicio.aspx" />
+    <Content Include="wfrmEliminarLibro.aspx" />
     <Content Include="wfrmLibros.aspx" />
     <Content Include="wfrmListaLibros.aspx" />
   </ItemGroup>
@@ -85,6 +86,13 @@
     </Compile>
     <Compile Include="inicio.aspx.designer.cs">
       <DependentUpon>inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="wfrmEliminarLibro.aspx.cs">
+      <DependentUpon>wfrmEliminarLibro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="wfrmEliminarLibro.aspx.designer.cs">
+      <DependentUpon>wfrmEliminarLibro.aspx</DependentUpon>
     </Compile>
     <Compile Include="wfrmLibros.aspx.cs">
       <DependentUpon>wfrmLibros.aspx</DependentUpon>
