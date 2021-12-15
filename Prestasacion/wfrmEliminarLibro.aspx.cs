@@ -19,7 +19,7 @@ namespace Prestasacion
             try
             {
                 if (Session["_claveLibro"] != null)
-                {
+                { 
 
                     recuperarLibro(Session["_claveLibro"].ToString());
                 }
