@@ -18,7 +18,15 @@
 
         <%   }%>
 
+        <% if (Session["_exito"] != null)
+            {%>
+        <div class="alert alert-success" role="alert">
+            <%=Session["_exito"]%>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% Session["_exito"] = null;
 
+            }%>
         <%if (Session["_wrn"] != null)
             {  %>
         <div class="alert alert-warning" role="alert">
@@ -27,23 +35,21 @@
         </div>
 
         <% }%>
-
-
         <div class="row mt-3">
             <div class="col-auto">
                 <asp:Label ID="Label1" runat="server" Text="Filtrar por Titulo"></asp:Label>
             </div>
-            <div class="col-auto ">
+            <div class||="col-auto ">
                 <asp:TextBox ID="txtFiltrarTitulo" runat="server" CssClass="form-control" ValidationGroup="1"></asp:TextBox>
             </div>
             <div class="col-auto">
-                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="Button1_Click"  ValidationGroup ="1"/>
+                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="Button1_Click" ValidationGroup="1" />
                 <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-secondary" OnClick="btnEliminar_Click" />
                 <asp:Button ID="btnLibroNuevo" runat="server" Text="Nuevo" CssClass="btn btn-secondary" OnClick="btnLibroNuevo_Click" />
             </div>
         </div>
         <br />
-        <asp:RequiredFieldValidator ID="rfvTxtTitulo" runat="server" ErrorMessage="Debe ingresar parte del titulo que sea filtrar." ControlToValidate="txtFiltrarTitulo"  Font-Italic="True" ValidationGroup="1" ForeColor="#CC0000"></asp:RequiredFieldValidator>
+        <asp:RequiredFieldValidator ID="rfvTxtTitulo" runat="server" ErrorMessage="Debe ingresar parte del titulo que sea filtrar." ControlToValidate="txtFiltrarTitulo" Font-Italic="True" ValidationGroup="1" ForeColor="#CC0000"></asp:RequiredFieldValidator>
         <asp:GridView ID="dtvLibros" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%" AllowPaging="True" EmptyDataText="No hay datos actualmente  inserta alguno nuevo" OnPageIndexChanging="dtvLibros_PageIndexChanging" PageSize="15">
             <AlternatingRowStyle BackColor="White" />
             <Columns>

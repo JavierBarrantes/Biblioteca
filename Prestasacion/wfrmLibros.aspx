@@ -20,7 +20,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% Session["_exito"] = null;
-                }%>
+
+             }%>
         
         <%-- ********************************** --%>
         <% if (Session["_wrn"] != null)
@@ -30,7 +31,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% Session["_wrn"] = null;
-                }%>
+            }%>
         <%-- ********************************** --%>
         <% if (Session["_err"] != null)
             {%>
@@ -39,11 +40,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <% Session["_err"] = null;
-                }%>
-        
-
-
-
+            }%>
         <div class="row mt-3">
             <div class="col-2">
 

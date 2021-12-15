@@ -66,8 +66,9 @@ namespace Prestasacion
 
         protected void lnkModificar_Command(object sender, CommandEventArgs e)
         {
-            //Session["_wrn"] = e.CommandArgument.ToString();
-            
+            Session.RemoveAll();
+            Session["_claveLibro"] = e.CommandArgument.ToString();
+            Response.Redirect("wfrmLibros.aspx");
         }
 
 
@@ -98,7 +99,7 @@ namespace Prestasacion
         protected void lnkEliminar_Command(object sender, CommandEventArgs e)
         {
             Session["_claveLibro"] = e.CommandArgument.ToString();
-            Response.Redirect("wfrmEliminarLibro");
+            Response.Redirect("wfrmEliminarLibro.aspx");
 
         }
     }

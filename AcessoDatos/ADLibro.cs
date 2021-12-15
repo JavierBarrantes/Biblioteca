@@ -82,9 +82,8 @@ namespace AcessoDatos
             ///
             SqlCommand comando = new SqlCommand();
             SqlConnection conexion = new SqlConnection(cadConexion);
-            SqlDataReader datos; // no se instencia
             comando.CommandText = "Select 1 from libro  where claveLibro=@claveLibro";
-            comando.Parameters.AddWithValue("@claveLibro", clave);
+            comando.Parameters.AddWithValue("@claveLibro",clave);
             comando.Connection=conexion;
 
 ;            try
@@ -180,7 +179,7 @@ namespace AcessoDatos
         {
             string setencia = "select clavelibro, titulo, claveAutor, claveCategoria from libro";
             Elibro libro = new Elibro();
-            setencia = $"{setencia} where {condicion}";
+            setencia = $"{setencia} where claveLibro ={condicion}";
          
 
             SqlConnection connection = new SqlConnection(cadConexion);
@@ -228,6 +227,30 @@ namespace AcessoDatos
                 connection.Open();
               result=sqlCommand.ExecuteNonQuery();
                connection.Close();
+            }
+            catch (Exception)
+            {
+                result = -1;
+            }
+            finally
+            {
+                connection.Dispose();
+                sqlCommand.Dispose();
+            }
+            return result;
+        }
+        public int eliminar(string clave)
+        {
+            int result = -1;
+            string sentencia = $"Delete from libro where claveLibro='{clave}'";
+            SqlConnection connection = new SqlConnection(cadConexion);
+            SqlCommand sqlCommand = new SqlCommand(sentencia, connection);
+
+            try
+            {
+                connection.Open();
+                result = sqlCommand.ExecuteNonQuery();
+                connection.Close();
             }
             catch (Exception)
             {
@@ -342,7 +365,7 @@ namespace AcessoDatos
             DataTable datos = new DataTable();
             SqlConnection connection = new SqlConnection(cadConexion);
             SqlDataAdapter ad;
-            string sentencia = "Select * from libro";
+            string sentencia = "Select * from vLibros";
             if (!string.IsNullOrEmpty(condicion))
                 sentencia = $"{sentencia} where {condicion}";
             try

@@ -73,8 +73,11 @@
     <Content Include="miScript.js" />
     <Content Include="Web.config" />
     <Content Include="inicio.aspx" />
+    <Content Include="wfrmEditoriales.aspx" />
+    <Content Include="wfrmEliminarEditorial.aspx" />
     <Content Include="wfrmEliminarLibro.aspx" />
     <Content Include="wfrmLibros.aspx" />
+    <Content Include="wfrmMantenimientoEditorial.aspx" />
     <Content Include="wfrmListaLibros.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +89,20 @@
     </Compile>
     <Compile Include="inicio.aspx.designer.cs">
       <DependentUpon>inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="wfrmEditoriales.aspx.cs">
+      <DependentUpon>wfrmEditoriales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="wfrmEditoriales.aspx.designer.cs">
+      <DependentUpon>wfrmEditoriales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="wfrmEliminarEditorial.aspx.cs">
+      <DependentUpon>wfrmEliminarEditorial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="wfrmEliminarEditorial.aspx.designer.cs">
+      <DependentUpon>wfrmEliminarEditorial.aspx</DependentUpon>
     </Compile>
     <Compile Include="wfrmEliminarLibro.aspx.cs">
       <DependentUpon>wfrmEliminarLibro.aspx</DependentUpon>
@@ -100,6 +117,13 @@
     </Compile>
     <Compile Include="wfrmLibros.aspx.designer.cs">
       <DependentUpon>wfrmLibros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="wfrmMantenimientoEditorial.aspx.cs">
+      <DependentUpon>wfrmMantenimientoEditorial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="wfrmMantenimientoEditorial.aspx.designer.cs">
+      <DependentUpon>wfrmMantenimientoEditorial.aspx</DependentUpon>
     </Compile>
     <Compile Include="wfrmListaLibros.aspx.cs">
       <DependentUpon>wfrmListaLibros.aspx</DependentUpon>

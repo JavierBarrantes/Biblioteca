@@ -30,6 +30,21 @@ namespace LogicaNegocio
 
 
         #region metodos
+        public string eliminarProcedure(Elibro libro)
+        {
+            ADLibro aDLibro = new ADLibro(cadConexion);
+
+            try
+            {
+                mensaje = aDLibro.eliminarProcedure(libro);
+            }
+            catch (Exception ex)
+            {
+
+                mensaje = ex.Message;
+            }
+            return mensaje;
+        }
         public bool libroRepetido(Elibro libro)
         {
             bool result =false;
@@ -134,21 +149,23 @@ namespace LogicaNegocio
             }
             return result;
         }
-        public string eliminarProcedure(Elibro libro)
+        public int eliminar(string clave)
         {
-            ADLibro aDLibro = new ADLibro(cadConexion);
 
+            ADLibro aDLibro = new ADLibro(cadConexion);
+            int result = -1;
             try
             {
-                mensaje = aDLibro.eliminarProcedure(libro);
+                result = aDLibro.eliminar(clave);
             }
             catch (Exception ex)
             {
 
-                mensaje = ex.Message;
+                throw ex;
             }
-            return mensaje;
+            return result;
         }
+
 
         public int modificar(Elibro libro, string claveVieja = "")
         {
