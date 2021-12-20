@@ -11,7 +11,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-        <%   }%>        <% if (Session["_exito"] != null)
+        <%   }%><% if (Session["_exito"] != null)
             {%>
         <div class="alert alert-success" role="alert">
             <%=Session["_exito"]%>
@@ -50,7 +50,12 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Modificar">
                     <ItemTemplate>
-                        <asp:LinkButton ID="lnkModifcar" runat="server" CommandArgument='<%# Eval("ClaveEditorial").ToString() %>'>Modificar</asp:LinkButton>
+                        <asp:LinkButton ID="lnkModifcar" runat="server" CommandArgument='<%# Eval("ClaveEditorial").ToString() %>' OnCommand="lnkModifcar_Command">Modificar</asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Ejemplares">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lnkEjemplar" runat="server" CommandArgument='<%# Eval("claveEditorial").ToString() %>' OnCommand="lnkEjemplar_Command">Ejemplares</asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="nombre" HeaderText="Nombre" />

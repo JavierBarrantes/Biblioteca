@@ -15,12 +15,12 @@ namespace Prestasacion
         LNEDitorial ediLogica = new LNEDitorial(config.getCadConect);
         EEditorial editorial = new EEditorial();
         Elibro elibro = new Elibro();
-      
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-               
+
                 CargarDatos("");
 
             }
@@ -30,14 +30,13 @@ namespace Prestasacion
         {
             DataTable datos = new DataTable();
             try
-            //CON APLICATION HACER EL MENSAJE DE SUSURRO  AL DIRECTOR-
             {
-                datos =ediLogica.listarTodos(clave,false);
+                datos = ediLogica.listarTodos(clave, false);
                 if (datos != null)
                 {
                     dvEditorial.DataSource = datos;
                     dvEditorial.DataBind();
-                   
+
                 }
                 else
                 {
@@ -76,6 +75,18 @@ namespace Prestasacion
         {
             Session["_ClaveEdi"] = e.CommandArgument.ToString();
             Response.Redirect("wfrmEliminarEditorial.aspx");
+        }
+
+        protected void lnkEjemplar_Command(object sender, CommandEventArgs e)
+        {
+            Session["_ClaveEdi"] = e.CommandArgument.ToString();
+            Response.Redirect("wfrmListaEje.aspx");
+        }
+
+        protected void lnkModifcar_Command(object sender, CommandEventArgs e)
+        {
+            Session["_ClaveEdi"] = e.CommandArgument.ToString();
+            Response.Redirect("wfrmMantenimientoEditorial.aspx");
         }
     }
 }

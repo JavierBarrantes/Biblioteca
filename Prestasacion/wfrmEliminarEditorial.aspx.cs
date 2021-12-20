@@ -64,16 +64,16 @@ namespace Prestasacion
             if (Session["_ClaveEdi"] != null)
             {
                 ediEnti.Clave = Session["_ClaveEdi"].ToString();
-                if (editorialLogica.unResgistro(ediEnti)<0)
+                 if (editorialLogica.unResgistro(ediEnti)<=0)
                 {
-                    result = editorialLogica.eliminar(Session["_claveLibro"].ToString());
+                    result = editorialLogica.eliminar(Session["_ClaveEdi"].ToString());
                     if (result > 0)
                     {
                         Session.Remove("_err");
                         Session.Remove("_wrn");
                         Session.Remove("_exito");
                         Session["_exito"] = $"La editorial se ha eliminado de forma exitosa";
-                        Response.Redirect("wfrmListaLibros.aspx",false);
+                        Response.Redirect("wfrmEditoriales.aspx",false);
                     }
                     else
                     {
@@ -83,6 +83,7 @@ namespace Prestasacion
                 else
                 {
                     Session["_wrn"] = $"No se ha podido eliminar la editorial por que esta ligada a un ejemplar";
+                    Response.Redirect("wfrmEditoriales.aspx", false);
                 }
                
 

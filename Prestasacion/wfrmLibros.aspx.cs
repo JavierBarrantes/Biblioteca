@@ -36,15 +36,10 @@ namespace Prestasacion
                         cookie["_titulo"] = elibro.Titulo;
                         cookie["_cate"] = elibro.Categoria.ClaveCategoria;
                         cookie["_idAutor"] = elibro.ClaveAutor;
-                        //cookie["_cateN"] = elibro.Categoria.Descripcion;
-                        //cookie["_autor"] =txtAutor.Text;
+                      
                         cookie.Expires = DateTime.Now.AddMinutes(20);
                         Response.Cookies.Add(cookie);
-                        //if (cookie.Expires.Minute==0)
-                        //{
-                        //    Session["_wrn"] = $"Se expiro el tiempo";
-                        //    Response.Redirect("wfrmListaLibro.aspx");
-                        //}
+                    
 
                     }
                 }

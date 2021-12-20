@@ -24,7 +24,7 @@ namespace AcessoDatos
         #region Metodos
         public EEditorial BuscarRegistro(string condicion)
         {
-            EEditorial editorial= new EEditorial();
+            EEditorial editorial = new EEditorial();
             string sentencia;
 
             SqlCommand comandoSQL = new SqlCommand();
@@ -34,7 +34,7 @@ namespace AcessoDatos
 
             sentencia = "Select claveEditorial,nombre From Editorial";
             if (!string.IsNullOrEmpty(condicion))
-                sentencia = string.Format("{0} Where ={1}", sentencia, condicion);
+                sentencia = string.Format("{0} Where claveEditorial='{1}'", sentencia, condicion);
             comandoSQL.Connection = conexionSQL;
             comandoSQL.CommandText = sentencia;
             try
@@ -46,7 +46,7 @@ namespace AcessoDatos
                     dato.Read();
                     editorial.Clave = dato.GetString(0);
                     editorial.Nombre = !dato.IsDBNull(1) ? dato.GetString(1) : "";
-                    
+
                 }
                 conexionSQL.Close();
             }
@@ -61,15 +61,15 @@ namespace AcessoDatos
 
             bool result = false;
             object obScalar;
-            string sentencia = $"Select 1 from EDITORIAL where claveEditorial= '{clave}'"; 
+            string sentencia = $"Select 1 from EDITORIAL where claveEditorial= '{clave}'";
             SqlConnection connection = new SqlConnection(cadenaCad);
-            SqlCommand sqlCommand = new SqlCommand(sentencia, connection); 
+            SqlCommand sqlCommand = new SqlCommand(sentencia, connection);
 
             try
             {
                 connection.Open();
                 obScalar = sqlCommand.ExecuteScalar();
-             
+
                 if (obScalar == null)
                     result = false;
                 else
@@ -96,30 +96,29 @@ namespace AcessoDatos
             SqlConnection connection = new SqlConnection(cadenaCad);
 
             if (string.IsNullOrEmpty(claveVieja))
-                sentencia = $"Update editorial  set claveEditorial='{editorial.Clave}', nombre='{editorial.Nombre}' where claveEditorail='{editorial.Clave}'";
+                sentencia = $"Update editorial  set claveEditorial='{editorial.Clave}', nombre='{editorial.Nombre}' where claveEditorial='{editorial.Clave}'";
             else
-            {
                 sentencia = $"Update editorial set claveEditorial='{editorial.Clave}', nombre='{editorial.Nombre}' where claveEditorial='{claveVieja}'";
-                SqlCommand sqlCommand = new SqlCommand(sentencia, connection);
-                try
-                {
-                    connection.Open();
-                    sqlCommand.ExecuteNonQuery();
-                    connection.Close();
-                }
-                catch (Exception)
-                {
-
-                    throw new Exception("Un problema al actualizar la editorial");
-                }
-                finally
-                {
-                    connection.Dispose();
-                    sqlCommand.Dispose();
-                }
-
-
+            SqlCommand sqlCommand = new SqlCommand(sentencia, connection);
+            try
+            {
+                connection.Open();
+                result = sqlCommand.ExecuteNonQuery();
+                connection.Close();
             }
+            catch (Exception)
+            {
+
+                throw new Exception("Un problema al actualizar la editorial");
+            }
+            finally
+            {
+                connection.Dispose();
+                sqlCommand.Dispose();
+            }
+
+
+
             return result;
 
         }
@@ -267,6 +266,32 @@ namespace AcessoDatos
                 throw new Exception("Ha ocurrido un error al buscar un registro de editoriales en la Base de datos");
             }
             return result;
+
+        }
+        public DataTable editoriales(string clave)
+        {
+            DataTable datos = new DataTable();
+            SqlConnection connection = new SqlConnection(cadenaCad);
+            SqlDataAdapter ad;
+            string sentencia = "select l.titulo as Libro,e.nombre as Editorial from EDITORIAL e inner join EJEMPLAR ej on e.claveEditorial=ej.claveEditorial " +
+                " inner join LIBRO l on ej.claveLibro = l.claveLibro " +
+                $" where e.claveEditorial = '{clave}'";
+            try
+            {
+                ad = new SqlDataAdapter(sentencia, cadenaCad);
+                ad.Fill(datos);
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Un error al cargar la lista de las editoriales filtrada por nombre");
+            }
+            finally
+            {
+                connection.Dispose();
+            }
+
+            return datos;
 
         }
         #endregion

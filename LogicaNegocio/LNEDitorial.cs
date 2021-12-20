@@ -137,8 +137,23 @@ namespace LogicaNegocio
             }
             return datos;
         }
-        public int unResgistro(EEditorial eEditorial)
+        public DataTable editoriales(string condicion)
         {
+            DataTable datos;
+            ADEditoriales editorial = new ADEditoriales(CadenaConexion);
+            try
+            {
+                datos = editorial.editoriales(condicion);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return datos;
+        }
+        public int unResgistro(EEditorial eEditorial)
+            {
 
             ADEditoriales editorial = new ADEditoriales(CadenaConexion);
             try

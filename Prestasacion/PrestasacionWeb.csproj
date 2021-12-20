@@ -77,6 +77,7 @@
     <Content Include="wfrmEliminarEditorial.aspx" />
     <Content Include="wfrmEliminarLibro.aspx" />
     <Content Include="wfrmLibros.aspx" />
+    <Content Include="wfrmListaEje.aspx" />
     <Content Include="wfrmMantenimientoEditorial.aspx" />
     <Content Include="wfrmListaLibros.aspx" />
   </ItemGroup>
@@ -117,6 +118,13 @@
     </Compile>
     <Compile Include="wfrmLibros.aspx.designer.cs">
       <DependentUpon>wfrmLibros.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="wfrmListaEje.aspx.cs">
+      <DependentUpon>wfrmListaEje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="wfrmListaEje.aspx.designer.cs">
+      <DependentUpon>wfrmListaEje.aspx</DependentUpon>
     </Compile>
     <Compile Include="wfrmMantenimientoEditorial.aspx.cs">
       <DependentUpon>wfrmMantenimientoEditorial.aspx</DependentUpon>
